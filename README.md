@@ -58,20 +58,15 @@ Before starting, ensure you have the following installed:
    npm install
    ```
 
-4. Create a `.env.local` file in the root directory and configure the required environment variables:
+4. In src/constants/routes.js, change the baseUrl assignment:
 
-   ```env
-   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/<database>?retryWrites=true&w=majority
-   NEXTAUTH_SECRET=your-auth-secret
+   ```bash
+   // Change the base URL for local development
+   const dev = "http://localhost:4000";
+   const prod = "https://mern-todo-backend-9qke.onrender.com";
    ```
 
-   - **`MONGODB_URI`:** Replace `<username>`, `<password>`, and `<database>` with your MongoDB credentials.
-   - **`NEXTAUTH_SECRET`:** A secure, randomly generated string used to sign NextAuth tokens. You can generate a secret using:
-     ```bash
-     openssl rand -base64 32
-     ```
-
-5. In src/constants/routes.js change the baseUrl from "const baseUrl = prod" to  "const baseUrl = dev" and run the backend server locally in development mode.
+const baseUrl = dev; // Set to 'dev' for local development
 
 5. Start the development server:
 
