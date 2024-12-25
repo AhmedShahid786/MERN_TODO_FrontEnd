@@ -1,101 +1,104 @@
-import Image from "next/image";
+"use client";
+
+//? Import libraries and functional components
+import axios from "axios";
+import { AuthContext } from "@/context/AuthContext";
+import { useContext, useEffect, useState } from "react";
+import { routes } from "@/constants/routes";
+import Cookies from "js-cookie";
+
+//? Import UI components
+import Task from "@/components/Task/Task";
+import AddTask from "@/components/AddTask/AddTask";
+import { Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+
+//? Define the Task interface
+interface Task {
+  _id: string;
+  title: string;
+  description: string;
+  isCompleted: boolean;
+}
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  //* Get the user from the AuthContext
+  const { user, setUser } = useContext(AuthContext)!;
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  //* Define the state variables
+  const [tasks, setTasks] = useState([]);
+  const [reFetch, setReFetch] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  //* Get the router object
+  const router = useRouter();
+
+  useEffect(() => getTasks(), [user, reFetch]);
+
+  //* Function to fetch user's tasks from the server
+  const getTasks = () => {
+    setLoading(true);
+    axios
+      //* Make a GET request to the server and pass the token in authorization header
+      .get(routes.getTask, {
+        headers: { Authorization: `Bearer ${user?.token}` },
+      })
+      //* If the request is successful, set the tasks and stop loader
+      .then((res) => {
+        setTasks(res?.data?.data);
+        setLoading(false);
+      })
+      //* If the request fails, log the error to console and stop loader
+      .catch((err) => {
+        console.log("err", err);
+        setLoading(false);
+      });
+  };
+
+  //* Function to logout the user by deleting the token from the cookies and setting the user state to null
+  const logout = () => {
+    Cookies.remove("token");
+    setUser(null);
+    router.push("/login");
+  };
+  return (
+    <main className="w-full flex flex-col items-center justify-center gap-6">
+      <p className="text-white text-xl font-poppins">
+        Welcome, {user?.user?.fullname}!
+      </p>
+      <div className="w-2/3 sm:w-1/2 flex items-center justify-between border-2 border-primary rounded-lg p-2">
+        <p className="text-white text-base font-orbitron font-medium tracking-wider">
+          Tasks
+        </p>
+        <AddTask setReFetch={setReFetch} />
+      </div>
+      {/* If loading is true, show the loader, else show the tasks */}
+      {loading ? (
+        <div className="w-1/2 h-40 flex items-center justify-center">
+          <Loader2 className="animate-spin text-primary h-12 w-12" />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      ) : (
+        <div className="w-1/2 flex-1 flex flex-col items-center justify-center gap-3 pb-6 overflow-scroll">
+          {tasks.length != 0 ? (
+            tasks.map((task: Task, ind) => (
+              <Task task={task} ind={ind} setRefetch={setReFetch} user={user} />
+            ))
+          ) : (
+            <p className="text-primary text-base md:text-lg font-poppins">
+              You've not added any tasks yet.
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Logout Button */}
+      <Button
+        onClick={logout}
+        className="absolute left-[75%] md:left-[90%] top-[1.5rem]"
+      >
+        Logout
+      </Button>
+    </main>
   );
 }
