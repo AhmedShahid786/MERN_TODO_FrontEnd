@@ -106,7 +106,7 @@ export default function Task({ task, ind, setRefetch, user }: TaskProps) {
     <Accordion
       type="single"
       collapsible
-      className="w-2/3 sm:w-full border-2 border-primary rounded-lg px-2"
+      className="w-full border-2 border-primary rounded-lg px-2"
     >
       <AccordionItem value={`item-${ind}`}>
         <AccordionTrigger>{title}</AccordionTrigger>
