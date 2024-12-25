@@ -19,7 +19,6 @@ import {
 } from "@/components/ui/form";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -30,7 +29,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { TbLoader2 } from "react-icons/tb";
 
-export default function AddTask({ setReFetch }: Readonly<{ setReFetch: any }>) {
+//? Define the AddTaskProps interface
+interface AddTaskProps {
+  setReFetch: (value: boolean) => void;
+}
+
+export default function AddTask({ setReFetch }: AddTaskProps) {
   const { user } = useContext(AuthContext)!;
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
@@ -67,6 +71,7 @@ export default function AddTask({ setReFetch }: Readonly<{ setReFetch: any }>) {
       })
       //* If the request is successful, stop loader, close the dialog and show toast
       .then((res) => {
+        console.log("Task added", res.data);
         setLoading(false);
         setOpen(false);
         toast({
@@ -74,10 +79,11 @@ export default function AddTask({ setReFetch }: Readonly<{ setReFetch: any }>) {
           description: "Task has been added successfully.",
         });
         //* Set reFetch to true to refetch the tasks so that new task is shown
-        setReFetch((prev: boolean) => !prev);
+        setReFetch(true);
       })
       //* If the request fails, stop loader and show toast
       .catch((err) => {
+        console.log("Error adding task", err);
         setLoading(false);
         setOpen(false);
         toast({

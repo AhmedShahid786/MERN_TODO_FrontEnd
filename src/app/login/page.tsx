@@ -32,7 +32,7 @@ interface loginFormData {
   password: string;
 }
 
-export default function page() {
+export default function Page() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { setUser } = useContext(AuthContext)!;
@@ -159,7 +159,7 @@ export default function page() {
 
       <div className="sm:w-1/2">
         <p className="text-white text-base xl:text-lg font-poppins">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link
             href="/signup"
             className="text-primary font-orbitron tracking-wider"

@@ -1,4 +1,4 @@
-const dev = "http://localhost:4000";
+// const dev = "http://localhost:4000";
 const prod = "https://mern-todo-backend-9qke.onrender.com";
 
 const baseUrl = prod;

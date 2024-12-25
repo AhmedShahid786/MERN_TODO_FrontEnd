@@ -31,7 +31,7 @@ interface signupFormData {
   password: string;
 }
 
-export default function page() {
+export default function Page() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const { toast } = useToast();
@@ -76,6 +76,7 @@ export default function page() {
       .post(routes.signup, newUserObj)
       //* If the request is successful, show a toast and redirect to login page
       .then((res) => {
+        console.log(res.data);
         toast({
           title: "Signup successful",
           description: "Please login to continue.",

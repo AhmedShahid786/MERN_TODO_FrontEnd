@@ -23,7 +23,7 @@ interface TaskProps {
     isCompleted: boolean;
   };
   ind: number;
-  setRefetch: any;
+  setRefetch: (value: boolean) => void;
   user: User | null;
 }
 
@@ -45,14 +45,15 @@ export default function Task({ task, ind, setRefetch, user }: TaskProps) {
           title: "Task Completed",
           description: "Task marked as completed",
         });
-        setRefetch((prev: boolean) => !prev);
+        setRefetch(true);
       })
-      .catch((err) =>
+      .catch((err) => {
+        console.log("err", err);
         toast({
           title: "Oops!",
           description: "Something went wrong. Please try again.",
-        })
-      );
+        });
+      });
   };
 
   //* Function to mark task as pending using the task id
@@ -68,14 +69,15 @@ export default function Task({ task, ind, setRefetch, user }: TaskProps) {
           title: "Task Pending.",
           description: "Task marked as pending.",
         });
-        setRefetch((prev: boolean) => !prev);
+        setRefetch(true);
       })
-      .catch((err) =>
+      .catch((err) => {
+        console.log("err", err);
         toast({
           title: "Oops!",
           description: "Something went wrong. Please try again.",
-        })
-      );
+        });
+      });
   };
 
   //* Function to delete task from the database using the task id
@@ -89,7 +91,7 @@ export default function Task({ task, ind, setRefetch, user }: TaskProps) {
           title: "Task Deleted",
           description: "Task deleted successfully",
         });
-        setRefetch((prev: boolean) => !prev);
+        setRefetch(true);
       })
       .catch((err) => {
         console.log("err", err);

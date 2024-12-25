@@ -82,11 +82,17 @@ export default function Home() {
         <div className="w-1/2 flex-1 flex flex-col items-center justify-center gap-3 pb-6 overflow-scroll">
           {tasks.length != 0 ? (
             tasks.map((task: Task, ind) => (
-              <Task task={task} ind={ind} setRefetch={setReFetch} user={user} />
+              <Task
+                task={task}
+                ind={ind}
+                setRefetch={setReFetch}
+                user={user}
+                key={ind}
+              />
             ))
           ) : (
             <p className="text-primary text-base md:text-lg font-poppins">
-              You've not added any tasks yet.
+              You&apos;ve not added any tasks yet.
             </p>
           )}
         </div>
