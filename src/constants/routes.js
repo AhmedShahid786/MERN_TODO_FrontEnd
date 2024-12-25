@@ -1,6 +1,7 @@
 const dev = "http://localhost:4000";
+const prod = "https://mern-todo-backend-9qke.onrender.com";
 
-const baseUrl = dev;
+const baseUrl = prod;
 
 export const routes = {
   signup: baseUrl + "/auth/signup",
