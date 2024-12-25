@@ -23,7 +23,7 @@ interface TaskProps {
     isCompleted: boolean;
   };
   ind: number;
-  setRefetch: (value: boolean) => void;
+  setRefetch: React.Dispatch<React.SetStateAction<boolean>>;
   user: User | null;
 }
 
@@ -45,7 +45,7 @@ export default function Task({ task, ind, setRefetch, user }: TaskProps) {
           title: "Task Completed",
           description: "Task marked as completed",
         });
-        setRefetch(true);
+        setRefetch((prev) => !prev);
       })
       .catch((err) => {
         console.log("err", err);
@@ -69,7 +69,7 @@ export default function Task({ task, ind, setRefetch, user }: TaskProps) {
           title: "Task Pending.",
           description: "Task marked as pending.",
         });
-        setRefetch(true);
+        setRefetch((prev) => !prev);
       })
       .catch((err) => {
         console.log("err", err);
@@ -91,7 +91,7 @@ export default function Task({ task, ind, setRefetch, user }: TaskProps) {
           title: "Task Deleted",
           description: "Task deleted successfully",
         });
-        setRefetch(true);
+        setRefetch((prev) => !prev);
       })
       .catch((err) => {
         console.log("err", err);
