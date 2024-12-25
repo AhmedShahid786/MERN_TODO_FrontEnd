@@ -1,36 +1,151 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Frontend: Internship Application
 
-## Getting Started
+This repository contains the **frontend** for a todoList/daily-tasks web application built with Next.js, showcasing my development skills. Below are instructions to set up, run, and deploy the frontend project.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [Setup Instructions](#setup-instructions)
+- [Deployment Process](#deployment-process)
+- [Features and Design Considerations](#features-and-design-considerations)
+- [Contact Information](#contact-information)
+
+---
+
+## Project Overview
+
+This todoList application is built with the following:
+
+- **Framework:** Next.js
+- **Styling:** Tailwind CSS
+- **State Management:** React Context API
+- **Routing:** App Router in Next.js (v13+)
+- **Features:** Authentication pages (login and signup), reusable components, and responsive design.
+
+This project consumes the RESTful API provided by the backend (hosted separately).
+
+---
+
+## Setup Instructions
+
+### Prerequisites
+
+Before starting, ensure you have the following installed:
+
+- **Node.js** (v16 or later)
+- **npm** (v8 or later) or **yarn**
+
+### Steps to Run Locally
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/AhmedShahid786/MERN_Todo_FrontEnd
+   ```
+
+````
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd MERN_Todo_FrontEnd
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Create a `.env.local` file in the root directory and configure the required environment variables:
+
+   ```env
+   MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/<database>?retryWrites=true&w=majority
+   NEXTAUTH_SECRET=your-auth-secret
+   ```
+
+   - **`MONGODB_URI`:** Replace `<username>`, `<password>`, and `<database>` with your MongoDB credentials.
+   - **`NEXTAUTH_SECRET`:** A secure, randomly generated string used to sign NextAuth tokens. You can generate a secret using:
+     ```bash
+     openssl rand -base64 32
+     ```
+
+5. In src/constants/routes.js change the baseUrl from "const baseUrl = prod" to  "const baseUrl = dev" and run the backend server locally in development mode.
+
+5. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+6. Open your browser and navigate to:
+   ```
+   http://localhost:3000
+   ```
+
+---
+
+## Deployment Process
+
+Deploying on Vercel
+
+First, host the backEnd on a hosting platform such as render.
+In src/constants/routes.js, add your backend hosted link. For instance "const prod = "your-server-link" "
+Make sure to change the baseUrl from "const baseUrl = dev" to  "const baseUrl = prod"
+
+Ensure your code is pushed to a GitHub repository:
+
+    ```bash
+    git add .
+    git commit -m "Initial commit"
+    git push origin main
+    ```
+Link the GitHub Repository to Vercel
+
+Go to Vercel and log in.
+Click on "Add New Project".
+Select "Import Git Repository".
+Choose your GitHub repository and configure the project settings.
+Configure Environment Variables
+
+In the Vercel project settings, go to Settings > Environment Variables.
+Add the following environment variables:
+MONGODB_URI: Your MongoDB connection string (e.g., mongodb+srv://<username>:<password>@cluster.mongodb.net/<database>).
+NEXTAUTH_SECRET: Secure random string for signing tokens.
+Trigger Initial Build and Deployment
+
+After linking the repository, Vercel will automatically build and deploy the project.
+The build output will be displayed in the "Deployments" section.
+Redeploy After Environment Changes
+
+If you add or modify environment variables, trigger a redeployment by clicking "Redeploy" in the Vercel dashboard under the Deployments tab.
+
+## Features and Design Considerations
+
+- **Responsive Design:** Fully optimized for mobile, tablet, and desktop views.
+- **Reusable Components:** Modular and reusable UI components for maintainability.
+- **Authentication:** Dedicated pages for login and signup.
+- **Scalable Architecture:** Clean file structure for easy feature expansion.
+
+---
+
+## Contact Information
+
+For any questions or feedback, feel free to reach out:
+
+- **Email:** a.razashahid19@gmail.com
+- **GitHub:** [AhmedShahid786](https://github.com/AhmedShahid786)
+- **LinkedIn:** [Ahmed Shahid](linkedin.com/in/ahmed-shahid-bb6216301)
+
+---
+
+## Notes
+
+- Replace placeholder values (e.g., `your-username`, `your-email@example.com`, `<username>`, and `<password>`) with your actual details.
+- Ensure the `.env.local` file contains the correct API URL, MongoDB URI, and NextAuth secret for local or production use.
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+````
