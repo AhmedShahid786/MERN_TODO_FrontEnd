@@ -79,7 +79,7 @@ export default function Home() {
           <Loader2 className="animate-spin text-primary h-12 w-12" />
         </div>
       ) : (
-        <div className="w-1/2 flex-1 flex flex-col items-center justify-center gap-3 pb-6 overflow-scroll">
+        <div className="w-2/3 sm:w-1/2 flex-1 flex flex-col items-center justify-center gap-3 pb-6 overflow-scroll">
           {tasks.length != 0 ? (
             tasks.map((task: Task, ind) => (
               <Task
