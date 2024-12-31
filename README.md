@@ -4,6 +4,13 @@ This repository contains the **frontend** for a todoList/daily-tasks web applica
 
 ---
 
+## Project Preview
+
+![Home Page](./public/readmeAssets/home.png)
+![Add Task](./public/readmeAssets/add-task.png)
+![Login Page](./public/readmeAssets/login.png)
+![Signup Page](./public/readmeAssets/signup.png)
+
 ## Table of Contents
 
 - [Project Overview](#project-overview)
